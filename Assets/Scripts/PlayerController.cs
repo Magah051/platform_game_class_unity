@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
-        if (Mathf.Abs(rb.velocity.y) > 0.01f)
+        if (Mathf.Abs(rb.velocity.y) > 0.02f)
         {
             isJumping = true;
             animator.SetBool("isJumping", true);
