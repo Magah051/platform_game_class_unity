@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private Animator animator;
     private bool isRunning = false;
+    private bool isJumping = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.SetBool("isRunning", false);
+        animator.SetBool("isJumping", false);
     }
 
     void Update()
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isRunning", isRunning);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             Jump();
         }
@@ -50,6 +52,17 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
+
+        if (Mathf.Abs(rb.velocity.y) > 0.01f)
+        {
+            isJumping = true;
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            isJumping = false;
+            animator.SetBool("isJumping", false);
+        }
     }
 
     void Jump()
@@ -58,6 +71,7 @@ public class PlayerController : MonoBehaviour
         if (hit.collider != null)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            animator.SetBool("isJumping", true);
         }
     }
 }
