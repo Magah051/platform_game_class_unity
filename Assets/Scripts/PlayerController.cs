@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
+
     private Rigidbody2D rb;
     private float moveInput;
     private Animator animator;
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
             animator.SetBool("isJumping", false);
         }
+
     }
 
     void Jump()
