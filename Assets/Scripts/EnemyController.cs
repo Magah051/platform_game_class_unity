@@ -17,6 +17,9 @@ public class EnemyController : MonoBehaviour
     private Vector3 scale;
     private Coroutine attackCoroutine;
 
+    public float fadeDuration = 1f;
+    private SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class EnemyController : MonoBehaviour
         currentTarget = waypointA;
         scale = transform.localScale;
         Debug.Log("Life do Enemy: " + enemyHealth);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -57,6 +61,12 @@ public class EnemyController : MonoBehaviour
         else
         {
             Debug.LogWarning("Player Controller não encontrado no objeto com a tag ZoneAttack");
+        }
+
+        if (other.CompareTag("AttackZone"))
+        {
+            Debug.Log("O inimigo está sendo atacado.");
+            EnemyTakeDamage(10);
         }
 
     }
@@ -128,5 +138,44 @@ public class EnemyController : MonoBehaviour
         Vector3 flippedScale = scale;
         flippedScale.x *= -1;
         transform.localScale = flippedScale;
+    }
+
+    public void EnemyTakeDamage(int damage)
+    {
+        enemyHealth -= damage;
+        animator.SetBool("inDamage", true);
+        Debug.Log("Inimigo tomou " + damage + " de dano. Saúde restante: " + enemyHealth);
+
+        StartCoroutine(ResetDamageAnimation());
+
+        if (enemyHealth <= 0)
+        {
+            Debug.Log("Inimigo Morreu!");
+            StartCoroutine(FadeOutAndDestroy());
+        }
+    }
+
+    private IEnumerator ResetDamageAnimation()
+    {
+        yield return new WaitForSeconds(1F);
+        animator.SetBool("inDamage", false);
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        float startAlpha = spriteRenderer.color.a;
+        float rate = 1.0f / fadeDuration;
+        float progress = 0.0f;
+
+        while(progress < 1.0f)
+        {
+            Color tmpColor = spriteRenderer.color;
+            spriteRenderer.color = new Color(tmpColor.r, tmpColor.g, tmpColor.b, Mathf.Lerp(startAlpha, 0, progress));
+            progress += rate * Time.deltaTime;
+
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

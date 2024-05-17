@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+
+        if (Input.GetButtonDown("Fire1"))
+            animator.SetTrigger("Attack");
     }
 
     void FixedUpdate()
