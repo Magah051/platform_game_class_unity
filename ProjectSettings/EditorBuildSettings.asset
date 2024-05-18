@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GamePlay.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Menu.unity
+    guid: a0f601fd6bf8d90459cd53033e87436b
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 69b236da34a80ac49b077aeec3eae2fc
   - enabled: 1
     path: Assets/Scenes/Game Over.unity
     guid: 6c7450ec521096b4691396ca4d83549b
