@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private bool isWalking = false;
     public int enemyHealth = 50;
-    public float attackInterval = 1f;
+    public float attackInterval = 2f;
 
     private Transform currentTarget;
     private Rigidbody2D rb;
@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            player.TakeDamage(10);//Valor pode ser alterado conforme sua necessidade.
+            player.TakeDamage(5);//Valor pode ser alterado conforme sua necessidade.
             animator.SetTrigger("Attack");
             Debug.Log("Inimigo atacando...");
 
