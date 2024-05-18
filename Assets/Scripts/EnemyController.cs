@@ -87,14 +87,11 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator AttackPlayer(PlayerController player)
     {
-        while (true)
-        {
-            player.TakeDamage(5);//Valor pode ser alterado conforme sua necessidade.
-            animator.SetTrigger("Attack");
-            Debug.Log("Inimigo atacando...");
+        player.TakeDamage(5);//Valor pode ser alterado conforme sua necessidade.
+        animator.SetTrigger("Attack");
+        Debug.Log("Inimigo atacando...");
+        yield return new WaitForSeconds(attackInterval);
 
-            yield return new WaitForSeconds(attackInterval);
-        }
     }
 
 
